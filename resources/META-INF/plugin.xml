@@ -1,0 +1,114 @@
+<idea-plugin>
+    <id>com.medlinker.idea.plugin.android</id>
+    <name>MedPlugin</name>
+    <version>0.0.2</version>
+    <vendor email="zhangquan@medlinker.com" url="https://www.medlinker.com">医联Android开发插件</vendor>
+
+    <description><![CDATA[
+    <div>医联android开发插件：</div>
+    <ul>
+      <li>本地依赖库检查更新</li>
+      <li>远程依赖库更新</li>
+      <li>测试环境和正式环境打包</li>
+      <li>版本更新检测</li>
+    </ul>
+    ]]></description>
+
+    <change-notes><![CDATA[
+     <div>0.0.1(2022.02)：</div>
+     <li>基础版发布</li>
+    ]]></change-notes>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="193.0"/>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+
+    </extensions>
+
+    <actions>
+        <group id="MedPlugin.MainMenu" text="医联" description="医联" icon="MedPluginIcons.ICON">
+            <add-to-group group-id="MainMenu" anchor="last"/>
+            <action id="MedPlugin.MainMenu.MedShowDiffAction"
+                    class="com.medlinker.idea.plugin.action.LocalConfigFileAction"
+                    text="依赖库-检查本地更新"
+                    description="检测config_libs.gradle是否有更新"/>
+            <action id="MedPlugin.MainMenu.RemoteConfigFileAction"
+                    class="com.medlinker.idea.plugin.action.RemoteConfigFileAction"
+                    text="依赖库-查看远程依赖库"
+                    description="查看x_dev/libs/config_libs.gradle"/>
+            <action id="MedPlugin.MainMenu.BuildMockApp"
+                    class="com.medlinker.idea.plugin.action.BuildMockAppAction"
+                    text="构建-测试环境包"
+                    description="构建测试环境包"/>
+            <action id="MedPlugin.MainMenu.BuildOnlineApp"
+                    class="com.medlinker.idea.plugin.action.BuildOnlineAppAction"
+                    text="构建-正式环境包"
+                    description="构建正式环境包"/>
+            <action id="MedPlugin.MainMenu.CheckUpdateAction"
+                    class="com.medlinker.idea.plugin.action.CheckUpdateAction"
+                    text="插件检测更新"
+                    description="检测插件是否有更新"/>
+        </group>
+
+        <group id="MedPlugin.ToolbarRunGroup">
+            <separator/>
+            <add-to-group group-id="ToolbarRunGroup" anchor="first"/>
+            <action id="MedPlugin.ToolbarRunGroup.RemoteConfigFileAction"
+                    class="com.medlinker.idea.plugin.action.RemoteConfigFileAction"
+                    text="远程依赖库"
+                    icon="MedPluginIcons.ICON_CONFIG_LIB"
+            />
+            <action id="MedPlugin.ToolbarRunGroup.SourceCodeSwitchAction"
+                    class="com.medlinker.idea.plugin.action.SourceCodeSwitchAction"
+                    text="源码依赖"
+                    icon="MedPluginIcons.ICON_SOURCE_CONFIG"
+            />
+            <separator/>
+        </group>
+
+        <group id="MedPlugin.ProjectViewPopupMenu">
+            <separator/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="before" relative-to-action="CompareTwoFiles"/>
+            <action id="MedPlugin.MedShowDiffAction"
+                    class="com.medlinker.idea.plugin.action.MedShowDiffAction"
+                    text="检查更新"
+                    description="show diff"
+                    icon="MedPluginIcons.ICON_SHOW_DIFF">
+            </action>
+            <separator/>
+        </group>
+
+        <group id="MedPlugin.EditorPopupMenu">
+            <separator/>
+            <add-to-group group-id="EditorPopupMenu" relative-to-action="CompareClipboardWithSelection"
+                          anchor="before"/>
+            <action id="MedPlugin.TestAction"
+                    class="com.medlinker.idea.plugin.action.MedShowDiffAction"
+                    text="检查更新"
+                    description="show diff"
+                    icon="MedPluginIcons.ICON_SHOW_DIFF">
+            </action>
+            <separator/>
+        </group>
+
+    </actions>
+
+    <application-components>
+        <!--        <component>-->
+        <!--            <implementation-class>com.medlinker.idea.plugin.component.MedApplicationComponent</implementation-class>-->
+        <!--        </component>-->
+    </application-components>
+
+    <applicationListeners>
+        <listener class="com.medlinker.idea.plugin.listener.MedAppListener"
+                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
+    </applicationListeners>
+
+
+</idea-plugin>

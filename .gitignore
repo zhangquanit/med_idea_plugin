@@ -1,0 +1,14 @@
+/*/build
+/*/*/build
+/.idea
+/.gradle
+/*.iml
+out
+/*/*.iml
+/*/*/*.iml
+/*/*/bin
+/.project
+output
+#x_dev
+#x_scripts
+med_idea_plugin.jar
